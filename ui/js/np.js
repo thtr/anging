@@ -15,6 +15,9 @@ angular.module('np',
 		"app.html": '<header>header <nav>nav</nav></header>'
 			+'<section ng-repeat="template in content track by $index" class="content content-view-{{params.view}}"><span ng-include src="template"></span></section>'
 		,"home.html": "home again"
+		,"search.html": "lets search"
+		,"policy.html": "edit policies, apply them in <a href='./search'>search</a>"
+		,"pulse.html": "pulse...pulsing"
 		// pieces and parts
 		,"404.html": "<p>Sorry, couldn't find <a href='{{url}}'><code>{{url}}</code></a></p>"	
 		//util
@@ -27,11 +30,35 @@ angular.module('np',
 
 	$routeProvider
 	.when('/', {templateUrl: 'app.html',
-	// home
+	/*
+	 * home: basic high-level overview of the product/features
+	 */
 	controller: function($scope, $location){
 		$scope.content = ['home.html'];
 	}})
+	.when('/search/:query*', {templateUrl: 'app.html',
+	/*
+	 * setup for search-based workflow:
+	 * find stuff, visualize it, apply policies, setup alerts by passing query to pulse
+	 */
+	controller: function($scope, $rootScope, $routeParams, $location){
+		var query = $routeParams.query.split('/')
+		$scope.content = ['search.html'];
+	}});
+	.when('/pulse/:pressure*', {templateUrl: 'app.html',
+	/*
+	 * manage pulse alerts
+	 * saved queries from search (more or less a bookmarks feature?)
+	 */
+	controller: function($scope, $rootScope, $routeParams, $location){
+		var pressure = $routeParams.something.split('/')
+		$scope.content = ['pulse.html'];
+	}});
 	.when('/api/:section*', {templateUrl: 'app.html',
+	/*
+	 * docs for implementing any desired feature with our api
+	 * examples etc
+	 */
 	controller: function($scope, $rootScope, $routeParams, $location){
 	// TODO how is this organized?
 		var section = $routeParams.view.split('/')
