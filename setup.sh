@@ -13,7 +13,7 @@ fi
 if [ -f ./lib/angular.zip ]; then
 	echo 'install and cleanup zip'
 	#unzip angular.zip lib/angular-1.3.10/*.* -x * -d ./ -u -o
-	unzip ./lib/angular.zip -d ./lib/ -u -o
+	unzip ./lib/angular.zip -d ./lib/
 #	rm -f angular.zip 
 fi
 echo 'update har loader'
