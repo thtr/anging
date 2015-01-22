@@ -1,0 +1,10 @@
+{
+  "name": "anging",
+  "version": "0.0.0",
+  "description": "..",
+  "main": "app.js",
+  "man": "./man/doc.1",
+  "dependencies": {
+    "express": "^4.11.1"
+  }
+}
