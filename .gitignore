@@ -1,1 +1,14 @@
-lib/
+**/lib/
+**/logs/*
+**/*.log
+!.gitkeep
+**/node_modules/
+**/temp*
+.DS_Store
+**/*.vim
+**/test-coverage/**
+**/*.heapsnapshot
+build/**
+**/test-results.xml
+npm-debug.log
+**/*diff*
