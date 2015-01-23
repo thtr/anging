@@ -44,7 +44,7 @@ angular.module('np',
 	controller: function($scope, $rootScope, $routeParams, $location){
 		var query = $routeParams.query.split('/')
 		$scope.content = ['search.html'];
-	}});
+	}})
 	.when('/pulse/:pressure*', {templateUrl: 'app.html',
 	/*
 	 * manage pulse alerts
@@ -53,7 +53,7 @@ angular.module('np',
 	controller: function($scope, $rootScope, $routeParams, $location){
 		var pressure = $routeParams.something.split('/')
 		$scope.content = ['pulse.html'];
-	}});
+	}})
 	.when('/api/:section*', {templateUrl: 'app.html',
 	/*
 	 * docs for implementing any desired feature with our api

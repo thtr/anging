@@ -1,25 +1,25 @@
 #! /bin/sh
 echo 'setup'
 
-if [ ! -d ./js/lib ]; then
+if [ ! -d ./ui/js/lib ]; then
 	echo 'setup lib dir'
-	mkdir ./js/lib
-	chmod go+rx ./js/lib
+	mkdir ./ui/js/lib
+	chmod go+rx ./ui/js/lib
 fi
-if [ ! -f ./js/lib/angular.zip ] && [ ! -f ./js/lib/angular-1.3.10/angular.js ]; then
-	curl -Lk https://code.angularjs.org/1.3.10/angular-1.3.10.zip -o ./js/lib/angular.zip
+if [ ! -f ./ui/js/lib/angular.zip ] && [ ! -f ./ui/js/lib/angular-1.3.10/angular.js ]; then
+	curl -Lk https://code.angularjs.org/1.3.10/angular-1.3.10.zip -o ./ui/js/lib/angular.zip
 fi
 
-if [ -f ./js/lib/angular.zip ]; then
+if [ -f ./ui/js/lib/angular.zip ]; then
 	echo 'install and cleanup zip'
 	#unzip angular.zip js/lib/angular-1.3.10/*.* -x * -d ./ -u -o
-	unzip ./js/lib/angular.zip -d ./js/lib/
-	ln -s ./js/lib/angular-1.3.10 ./js/ng
-#	rm -f ./js/lib/angular.zip 
+	unzip ./ui/js/lib/angular.zip -d ./ui/js/lib/
+	ln -s ./ui/js/lib/angular-1.3.10 ./ui/js/ng
+#	rm -f ./ui/js/lib/angular.zip 
 fi
 
 echo 'update har loader'
-curl https://raw.githubusercontent.com/thtr/harharhar/master/harharhar.js -o js/lib/harharhar.js
+curl https://raw.githubusercontent.com/thtr/harharhar/master/harharhar.js -o ./ui/js/lib/harharhar.js
 
 echo 'fix permissions'
 chmod -R go+r ui
