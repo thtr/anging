@@ -10,7 +10,6 @@ html{font:1rem/1.4 "Helvetica Neue",Helvetica,Arial,sans-serif;background:#fff;c
 </style>
 <body ng-view>
 <h4 class="loading">Nodeprime loading</h4>
-<script src="js/ng/angular.js"></script>
 <script>
 /*
  AngularJS v1.3.1
@@ -46,7 +45,7 @@ b.head.insertBefore(link, b.head.firstChild);
 			angular.bootstrap(document, ['np']);
 		};
 		if(np.mock){
-			$script(['js/ng/angular-mocks.js','js/mocks.js'], boot);
+			$script(['js/lib/harharhar.js', 'js/ng/angular-mocks.js','js/mocks.js'], boot);
 		}else{
 			boot();
 		};

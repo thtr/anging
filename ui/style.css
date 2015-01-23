@@ -35,7 +35,6 @@ a:focus{ outline:thin dotted;}
 /* Improve readability when focused and also mouse hovered in all browsers. */
 a:active, a:hover{outline:0;}
 
-
 .error, .ng-invalid{color:red;}
 .not-selectable, .notSelectable{-webkit-touch-callout:none; -webkit-user-select:none; -khtml-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; }
 .loading{-webkit-animation:loading 800ms ease infinite alternate;}
