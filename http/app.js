@@ -6,7 +6,9 @@ var serv
 	,usage = [
 		''
 		,'usage:'
-		,'eg > PORT=8888 && node ./http/app.js ./relative/path/to/root/'
+		,'eg % PORT=8888 && node ./http/app.js ./relative/path/to/root/'
+		,''
+		,'run silently % node ./http/app.js base/ > /dev/null 2>&1'
 		,'Note trailing path relative to the current directory.'
 	]
 	;
@@ -17,7 +19,7 @@ var serv
 
 		// strip get args, strip directories, strip filename to trailing extension
 		var ext = req.url.replace(/\?.*$/,'');
-		var path = WWW + req.url;
+		var path = WWW + ext;
 		var read = fs.createReadStream( path );
 		ext = ext.replace(/^.*\//,'').replace(/^.*\./,'')
 		console.log('%s %s', req.method, req.url);
@@ -25,14 +27,14 @@ var serv
 		function handle(){
 		// body = 404 message
 			var body, type = 'text/plain';
-			switch(ext){
+			switch( ext.toLowerCase() ){
 			case 'js':
 				type = 'application/javascript';
 				body = '/* not found */';
 			break;
 			case 'txt':
 				type = 'text/plain';
-				body = '/* not found */';
+				body = 'not found '+req.url;
 			break;
 			case 'json':
 				type = 'application/json';
@@ -44,6 +46,8 @@ var serv
 			break;
 			case 'ico':
 				type = 'image/x-icon';
+			case 'png':
+				type = 'image/png';
 			break;
 			case 'gif':
 				type = 'image/gif';
@@ -62,6 +66,7 @@ var serv
 		read.on('open',function(e){
 			res.writeHead(200, {'Content-Type': handle().type});
 		});
+
 		read.on('error',function(e){
 			var setup = handle();
 			if(setup.type !== 'text/html'){
