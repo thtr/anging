@@ -11,7 +11,7 @@ var serv
 	]
 	;
 
-	console.log(usage.join('\n\t'));
+	console.log( usage.join('\n\t') );
 
 	serv = http.createServer(function(req, res){
 
@@ -20,43 +20,62 @@ var serv
 		var path = WWW + req.url;
 		var read = fs.createReadStream( path );
 		ext = ext.replace(/^.*\//,'').replace(/^.*\./,'')
-		console.log('%s %s',req.method, req.url);
+		console.log('%s %s', req.method, req.url);
 
-		function handle(status, type, body){
-			res.writeHead(status || 200, {'Content-Type':type || 'text/plain'});
-			if(body) res.end(body);
+		function handle(){
+		// body = 404 message
+			var body, type = 'text/plain';
+			switch(ext){
+			case 'js':
+				type = 'application/javascript';
+				body = '/* not found */';
+			break;
+			case 'txt':
+				type = 'text/plain';
+				body = '/* not found */';
+			break;
+			case 'json':
+				type = 'application/json';
+				body = '{}';
+			break;
+			case 'css':
+				type = 'text/css';
+				body = '/* not found */';
+			break;
+			case 'ico':
+				type = 'image/x-icon';
+			break;
+			case 'gif':
+				type = 'image/gif';
+			break;
+			case 'jpg':
+				type = 'image/jpeg';
+			break;
+			default:
+				type = 'text/html';
+				body = "<!doctype html>\n<html><body>404, can't find " + req.url;
+			};
+			return {type: type, body: body};
 		};
 		read.pipe( res );
 
+		read.on('open',function(e){
+			res.writeHead(200, {'Content-Type': handle().type});
+		});
 		read.on('error',function(e){
-			//console.log('response err %s', ext);
-			switch(ext){
-			case 'js':
-				handle(404, 'application/javascript', '/* not found */');
-			break;
-			case 'json':
-				handle(404, 'application/json', '{}');
-			break;
-			case 'css':
-				handle(404, 'text/css', '/* not found */');
-			break;
-			case 'ico':
-				handle(404, 'image/x-icon', '');
-			break;
-			case 'gif':
-				handle(404, 'image/gif', '');
-			break;
-			case 'jpg':
-				handle(404, 'image/jpeg', '');
-			break;
-			default:
-				handle(200, 'text/html');
-				read = fs.createReadStream( path + '/index.html');
+			var setup = handle();
+			if(setup.type !== 'text/html'){
+				res.writeHead(404, {'Content-Type': setup.type});
+				res.end(setup.body);
+			}else{
+				res.writeHead(200, {'Content-Type': setup.type});
+				// reuse variable
+				path = WWW + '/index.html';
+				read = fs.createReadStream( path );
 				read.pipe( res );
 				read.on('error', function(e){
-					handle(200, 'text/html',
-					'<!doctype html>\n<html> ERR'+path +'<br>'+req.url+'<br>'+ext+'<script type="text/javascript" src="./some.js">alert(4)</script>'
-					);
+					console.log("DOH! couldn't substitue index for 404 %s", path);
+					res.end(setup.body);
 				});
 			};
 		});

@@ -8,6 +8,7 @@
   "devDependencies": {
     "autoprefixer": "~4.0.0",
     "autoprefixer-core": "^4.0.1",
+    "gulp": "^3.8.10",
     "jasmine-reporters": "~2.0.3",
     "karma": "~0.12.23",
     "karma-chrome-launcher": "~0.1.4",
