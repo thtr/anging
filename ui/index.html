@@ -36,7 +36,7 @@ var _link, link = b.createElement('link');
 link.href="style.css",link.rel='stylesheet',link.type="text/css";
 b.head.insertBefore(link, b.head.firstChild);
 }(this,document,setTimeout)
-	var np = {mock: /\b(mock|stub|fake)\b/i.test( location.hash )};
+	var np = {mock: /\b(mock|stub|fake)\b/i.test( location.search )};
 	window.np = np;
 	$script(
 		'js/ng/angular.js, js/ng/angular-route.js, js/np.js, js/npUtil.js, js/npVisualize.js, js/npSearch.js, js/npPolicy.js'.split(/,\s*/)
@@ -45,7 +45,7 @@ b.head.insertBefore(link, b.head.firstChild);
 			angular.bootstrap(document, ['np']);
 		};
 		if(np.mock){
-			$script(['js/lib/harharhar.js', 'js/ng/angular-mocks.js','js/mocks.js'], boot);
+			$script(['js/lib/harharhar.js', 'js/ng/angular-mocks.js','js/npMocks.js'], boot);
 		}else{
 			boot();
 		};
