@@ -14,6 +14,11 @@ if [ ! -f $lib/angular.zip ] && [ ! -f $lib/angular-1.3.10/angular.js ]; then
 	curl -Lk https://code.angularjs.org/1.3.10/angular-1.3.10.zip -o $lib/angular.zip
 fi
 
+if [ ! -f $lib/d3.js ]; then
+	echo 'get d3'
+	curl https://raw.githubusercontent.com/mbostock/d3/master/d3.js -o $lib/d3.js
+fi
+
 if [ -f $lib/angular.zip ] && [ ! -f $lib/angular-1.3.10/angular.js ]; then
 	echo 'install angular and cleanup zip'
 	#unzip angular.zip js/lib/angular-1.3.10/*.* -x * -d ./ -u -o
